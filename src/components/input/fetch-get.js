@@ -1,14 +1,18 @@
 export class FetchGet {
+  message = "У подразделения нет дочерних элементов";
+
+  _baseUrl = "https://wfm-dev.t.goodt.me/api/v1/org-units";
+  _headers = {
+    method: "GET",
+    headers: {
+      Authorization: `Basic ${btoa("superuser:qweqwe")}`,
+    },
+  };
   orgUnits;
   children;
 
   attached() {
-    fetch("https://wfm-dev.t.goodt.me/api/v1/org-units/main", {
-      method: "GET",
-      headers: {
-        Authorization: `Basic ${btoa("superuser:qweqwe")}`,
-      },
-    })
+    fetch(`${this._baseUrl}/main`, this._headers)
       .then((response) => response.json())
       .then((data) => {
         const orgUnits = data._embedded.orgUnits;
@@ -19,23 +23,17 @@ export class FetchGet {
   getName(item) {
     return item.name;
   }
-
-  getChildren() {
-    this.orgUnits.map((item) => {
-      item._links.children.href
-        ? fetch(`${item._links.children.href.split("{")[0]}`, {
-            method: "GET",
-            headers: {
-              Authorization: `Basic ${btoa("superuser:qweqwe")}`,
-            },
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              const children = data._embedded.orgUnits;
-              this.children = children;
-              console.log(children);
-            })
-        : console.log("Нет детей");
-    });
-  }
+  getChildren = async (elem) => {
+    if (elem._links.children) {
+      await fetch(`${this._baseUrl}/${elem.id}/children`, this._headers)
+        .then((response) => response.json())
+        .then((data) => {
+          const children = data._embedded.orgUnits;
+          this.children = children;
+          console.log(children);
+        });
+    } else {
+      console.log("Нет подразделений для этого элемента");
+    }
+  };
 }

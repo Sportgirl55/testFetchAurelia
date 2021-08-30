@@ -5,19 +5,23 @@
       <div class="list__box">
         <div class="list__box-parent">
           <ul>
-            <li repeat.for="orgUnit of orgUnits">
+            <li repeat.for="orgUnit of orgUnits" click.trigger="getChildren(orgUnit)">
               ${getName(orgUnit)}
             </li>
           </ul>
-          <button click.trigger="getChildren()"
+          <!-- <button click.trigger="getChildren(orgUnit)"
             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
             Показать дочерние элементы
-          </button>
+          </button> -->
+
         </div>
         <div class="list__box-children">
           <ul>
-            <li repeat.for="child of children" click.trigger="getChildren()">
-              ${getName(child)}
+            <li repeat.for="child of children" click.trigger="getChildren(child)">
+              <button class="mdl-button mdl-js-button">
+                ${getName(child)}
+              </button>
+              <!-- <span if.bind="message">${message}</span> -->
             </li>
           </ul>
         </div>
@@ -25,6 +29,7 @@
     </div>
   </div>
   </div>
+
 </template>
 
 
