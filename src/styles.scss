@@ -12,6 +12,10 @@ body {
     list-style-type: none;
     font-size: 18px;
     padding-right: 16px;
+    .child-item {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
 

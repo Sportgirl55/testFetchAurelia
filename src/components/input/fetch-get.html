@@ -1,29 +1,47 @@
 <template>
+
   <div class="container">
     <div class="list">
 
       <div class="list__box">
         <div class="list__box-parent">
-          <ul>
-            <li repeat.for="orgUnit of orgUnits" click.trigger="getChildren(orgUnit)">
-              ${getName(orgUnit)}
+
+          <ul class="demo-list-control mdl-list">
+            <li class="mdl-list__item" repeat.for="orgUnit of orgUnits">
+              <span class="mdl-list__item-primary-content">
+                ${getName(orgUnit)}
+              </span>
+              <span class="mdl-list__item-secondary-action">
+                <button if.bind="orgUnits" class="mdl-button mdl-js-button mdl-button--primary"
+                  click.trigger="getChildren(orgUnit)">
+                  Показать дочерние подразделения
+                </button>
+              </span>
             </li>
           </ul>
-          <!-- <button click.trigger="getChildren(orgUnit)"
-            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            Показать дочерние элементы
-          </button> -->
 
         </div>
         <div class="list__box-children">
-          <ul>
-            <li repeat.for="child of children" click.trigger="getChildren(child)">
-              <button class="mdl-button mdl-js-button">
+
+          <ul class="demo-list-control mdl-list">
+            <li class="mdl-list__item" repeat.for="child of children" class="child-item">
+              <span class="mdl-list__item-primary-content">
                 ${getName(child)}
-              </button>
-              <!-- <span if.bind="message">${message}</span> -->
+              </span>
+              <div class="mdl-list__item-secondary-action">
+                <span if.bind="!statusChild" class="mdl-button mdl-js-button mdl-button--primary">
+                  Нет дочерних подразделений
+                </span>
+                <button if.bind="statusChild" class="mdl-button mdl-js-button mdl-button--primary"
+                  click.trigger="getChildren(child)">
+                  Показать дочерние подразделения
+                </button>
+
+              </div>
             </li>
           </ul>
+
+        
         </div>
       </div>
     </div>
@@ -31,9 +49,3 @@
   </div>
 
 </template>
-
-
-
-
-
-
