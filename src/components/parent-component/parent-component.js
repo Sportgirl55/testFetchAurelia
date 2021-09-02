@@ -1,4 +1,8 @@
-export class FetchGet {
+import {FetchGet} from '../input/fetch-get';
+import {inject} from 'aurelia-framework';
+
+// @inject(FetchGet)
+export class ParentComponent {
   _baseUrl = "https://wfm-dev.t.goodt.me/api/v1/org-units";
   _headers = {
     method: "GET",
@@ -45,4 +49,5 @@ export class FetchGet {
       this.statusChild = false;
     }
   };
+
 }

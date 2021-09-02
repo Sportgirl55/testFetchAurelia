@@ -1,0 +1,21 @@
+<template>
+
+  <div class="list__box-parent">
+    <ul class="demo-list-control mdl-list">
+      <li class="mdl-list__item" repeat.for="orgUnit of orgUnits">
+        <span class="mdl-list__item-primary-content">
+          ${getItemData(orgUnit).name}
+        </span>
+        <div class="mdl-list__item-secondary-action">
+          <button if.bind="orgUnits" class="mdl-button mdl-js-button mdl-button--primary"
+            click.trigger="getChildren(orgUnit)">
+            Показать дочерние подразделения
+          </button>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+
+
+</template>

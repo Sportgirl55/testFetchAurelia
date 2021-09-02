@@ -1,0 +1,37 @@
+<template>
+
+  <label for="nameField">
+    Who to greet?
+  </label>
+  <input type="text" value.bind="name" id="nameField">
+  <label for="arrivingBox">
+    Arriving?
+  </label>
+  <input type="checkbox" checked.bind="arriving" id="arrivingBox">
+  <p>
+    ${arriving ? 'Hello' : 'Goodbye'}, ${name}!
+  </p>
+
+   <input focus.bind="hasFocus"> <!-- Фокус меняется при нажатии -->
+  ${hasFocus}
+
+
+  <p with.bind="surname">  <!-- Связывание значений с помощью with -->
+    <input type="text" value.bind="name">
+  </p>
+
+  <label for="greet">Would you like me to greet the world?</label>
+  <input type="checkbox" id="greet" checked.bind="greet">
+  <div if.bind="greet">
+    <p repeat.for="friend of friends">Hello, ${friend}!</p>
+  </div>
+
+  <label for="greet1">Would you like me to greet the world?</label>
+  <input type="checkbox" id="greet1" checked.bind="hello">
+  <div if.bind="hello">
+    <p repeat.for="friend of friends">Hello, ${friend}!</p>
+  </div>
+
+  
+
+</template>

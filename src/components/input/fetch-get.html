@@ -1,51 +1,60 @@
 <template>
-
+ 
   <div class="container">
     <div class="list">
 
       <div class="list__box">
         <div class="list__box-parent">
-
           <ul class="demo-list-control mdl-list">
             <li class="mdl-list__item" repeat.for="orgUnit of orgUnits">
               <span class="mdl-list__item-primary-content">
-                ${getName(orgUnit)}
+                ${getItemData(orgUnit).name}
               </span>
-              <span class="mdl-list__item-secondary-action">
+              <div class="mdl-list__item-secondary-action">
                 <button if.bind="orgUnits" class="mdl-button mdl-js-button mdl-button--primary"
                   click.trigger="getChildren(orgUnit)">
                   Показать дочерние подразделения
                 </button>
-              </span>
+              </div>
             </li>
           </ul>
-
+      
         </div>
+
         <div class="list__box-children">
 
           <ul class="demo-list-control mdl-list">
             <li class="mdl-list__item" repeat.for="child of children" class="child-item">
               <span class="mdl-list__item-primary-content">
-                ${getName(child)}
+                ${getItemData(child).name}
               </span>
               <div class="mdl-list__item-secondary-action">
                 <span if.bind="!statusChild" class="mdl-button mdl-js-button mdl-button--primary">
                   Нет дочерних подразделений
                 </span>
-                <button if.bind="statusChild" class="mdl-button mdl-js-button mdl-button--primary"
-                  click.trigger="getChildren(child)">
+                <button else class="mdl-button mdl-js-button mdl-button--primary" click.trigger="getChildren(child)">
                   Показать дочерние подразделения
                 </button>
+
+
+                <!-- <form else action="">
+                  <label for="() => getItemData(child).id">Показать дочерние подразделения</label>
+                  <input type="checkbox" key="() => getItemData(child).id" checked.bind="yes"
+                    change.trigger="getChildren(child)">
+                -->
+                <!-- 
+                  Показать дочерние подразделения = ${yes} -->
+                <!-- </form>
+                <div if.bind="yes" repeat.for="child of children" class="list__box-children">
+                  <span>${getItemData(child).name}</span>
+                </div> -->
 
               </div>
             </li>
           </ul>
-
-        
         </div>
       </div>
     </div>
-  </div>
   </div>
 
 </template>
