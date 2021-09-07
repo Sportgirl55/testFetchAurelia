@@ -225,6 +225,12 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
       // only when the issuer is a .js/.ts file, so the loaders are not applied inside html templates
       {
         test: /\.css$/i,
+        
+        options: {
+          modules: true
+        },
+
+
         issuer: [{ not: [{ test: /\.html$/i }] }],
         use: extractCss ? [{
           loader: MiniCssExtractPlugin.loader

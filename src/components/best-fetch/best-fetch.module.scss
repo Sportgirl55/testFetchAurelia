@@ -1,0 +1,22 @@
+.list__box-parent {
+  margin: auto;
+  flex-direction: column;
+}
+
+
+
+.list__box {
+  display: flex;
+  flex-direction: column;
+  margin: 16px;
+
+  .list__box-parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .list__box-children {
+
+    margin: auto;
+  }
+}

@@ -1,0 +1,27 @@
+<template>
+
+	<div class=${classes.list}${classes.list__box}>
+
+		<div class=${classes.list__box-children}>
+			<span class=${classes.name} click.trigger="reload(orgUnit.name)">${orgUnit.name}</span>
+
+			<ul class=${classes.border} class="demo-list-control mdl-list" if.bind="children" style="margin-left: 20px">
+				<li class="mdl-list__item"  repeat.for="child of children">
+					<div class=${classes.border__child} >
+						<child-component class=${classes.border__child} org-unit.bind="child" ></child-component>
+					</div>
+				</li>
+			</ul>
+
+		</div>
+
+		<button   type="button" if.bind="!children && orgUnit._links.children" disabled.bind="loading"
+			class="mdl-button mdl-js-button mdl-button--primary" click.trigger="loadChildren(orgUnit)">
+			${loading ? 'Загрузка...' : 'Показать дочерние подразделения'}
+		</button>
+
+		<div show.bind="loading" class="mdl-spinner mdl-js-spinner is-active"></div>
+
+	</div>
+
+</template>

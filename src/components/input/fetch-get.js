@@ -1,3 +1,5 @@
+import "./fetch-get.scss";
+
 export class FetchGet {
   _baseUrl = "https://wfm-dev.t.goodt.me/api/v1/org-units";
   _headers = {
@@ -20,13 +22,16 @@ export class FetchGet {
         const orgUnits = data._embedded.orgUnits;
         this.orgUnits = orgUnits;
       });
+      componentHandler.upgradeAllRegistered();
   }
 
   getItemData(item) {
+    componentHandler.upgradeAllRegistered();
     return {
       name: item.name,
       id: item.id,
     };
+    
   }
 
   getChildren = async (elem) => {
@@ -40,9 +45,10 @@ export class FetchGet {
           this.statusChild = true;
           console.log(children);
         })
-        .finally((this.loading = false));
+        .finally(() => this.loading = false);
     } else {
       this.statusChild = false;
     }
+    componentHandler.upgradeAllRegistered();
   };
 }

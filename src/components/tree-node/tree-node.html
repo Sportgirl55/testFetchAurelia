@@ -1,0 +1,26 @@
+<template>
+	<div if.bind="orgUnit">${orgUnit.name}</div>
+	<!--
+		Показываем кнопку только если дети ещё не загружены, и
+		нам вообще есть, откуда их загружать. Т.е. либо мы на верхнем
+		уровне (orgUnit == undefined, в этом случае можем загрузить main),
+		либо мы внутри какого-то подразделения (orgUnit есть, и в нём есть
+		ссылка children).
+		
+		Во время загрузки дизейблим кнопку.
+	-->
+	<button type="button" if.bind="!children && (!orgUnit || orgUnit._links.children)" disabled.bind="loading"
+		click.trigger="loadChildren()">
+		${loading ? 'Загрузка...' : 'Показать дочерние'}
+	</button>
+	<!-- Блок с детьми немного смещаем вправо -->
+	<div if.bind="children" style="margin-left: 15px">
+		<!--
+			Компонент рекурсивно использует сам себя для отображения дочерних подразделений.
+			Каждого ребёнка передаём в атрибут org-unit (@bindable orgUnit) дочерним элементам.
+			Они, в свою очередь, могут загрузить и отрисовать уже своих детей.
+			И т.д.
+		-->
+		<tree-node repeat.for="child of children" org-unit.bind="child"></tree-node>
+	</div>
+</template>

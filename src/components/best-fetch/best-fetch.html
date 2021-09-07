@@ -1,0 +1,33 @@
+<template>
+
+	<div class="container">
+		<div class="list list__box">
+			<div class="list__box-parent">
+
+				<div if.bind="orgUnit">
+					<span class=${classes.name}>
+						${orgUnit.name}
+					</span>
+				</div>
+		
+					<button type="button" class="mdl-button mdl-js-button mdl-button--primary"
+						if.bind="!children && (!orgUnit || orgUnit._links.children)" disabled.bind="loading"
+						click.trigger="loadChildren()">
+						${loading ? 'Загрузка...' : 'Показать дочерние подразделения'}
+					</button>
+				 <div show.bind="loading" class="mdl-spinner mdl-js-spinner is-active"></div> 
+			</div>
+
+			 <div class="list__box-children"> 
+				<!-- Блок с детьми немного смещаем вправо -->
+				<div if.bind="children" style="margin-left: 15px">
+					<best-fetch repeat.for="child of children" org-unit.bind="child"></best-fetch>
+				</div>
+			 </div> 
+
+		</div>
+	</div>
+
+
+
+</template>

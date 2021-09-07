@@ -1,21 +1,8 @@
 <template>
+  <require from='../child-component/child-component'></require>
 
-  <div class="list__box-parent">
-    <ul class="demo-list-control mdl-list">
-      <li class="mdl-list__item" repeat.for="orgUnit of orgUnits">
-        <span class="mdl-list__item-primary-content">
-          ${getItemData(orgUnit).name}
-        </span>
-        <div class="mdl-list__item-secondary-action">
-          <button if.bind="orgUnits" class="mdl-button mdl-js-button mdl-button--primary"
-            click.trigger="getChildren(orgUnit)">
-            Показать дочерние подразделения
-          </button>
-        </div>
-      </li>
-    </ul>
-
+  <div class="container">
+    <child-component repeat.for="orgUnit of main" org-unit.bind="orgUnit"></child-component>
   </div>
-
 
 </template>
